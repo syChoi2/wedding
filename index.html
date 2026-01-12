@@ -6,45 +6,48 @@
   <title>Invitation</title>
 
   <style>
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #f7f1e6;
-      /* ❌ touch-action: pan-y;  (이거 제거) */
-      overscroll-behavior: none;
-    }
-
-    .slider {
-      display: flex;
-      height: 100svh;
-      width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-
-      /* ✅ 가로 스와이프 허용 */
-      touch-action: pan-x;
-    }
-
-    .slider::-webkit-scrollbar { display: none; }
-.slide {
+html, body {
+  margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100svh;
+  height: 100%;
+  background: #000; /* 여백 생기면 검정으로 보이게(원하면 #f7f1e6로) */
+  overflow: hidden; /* 바깥 스크롤 방지 */
 }
 
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;     /* 🔥 화면 꽉 채움 */
+/* 가로 스와이프 컨테이너 */
+.slider {
+  display: flex;
+  width: 100vw;
+  height: 100dvh;              /* ✅ iOS에서 가장 안정적 */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  touch-action: pan-x;
+}
+.slider::-webkit-scrollbar { display: none; }
+
+/* 각 페이지: 패딩/정렬 제거 */
+.slide {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100dvh;              /* ✅ */
+  scroll-snap-align: start;
+  padding: 0;                   /* ✅ 여백 제거 */
+  margin: 0;
+}
+
+/* 이미지: "무조건 화면 꽉" */
+.slide img {
+  display: block;
+  width: 100vw;
+  height: 100dvh;              /* ✅ 핵심: auto/max-height 금지 */
+  object-fit: cover;            /* ✅ 여백 없이 꽉 채움 (대신 약간 크롭) */
   border-radius: 0;
   box-shadow: none;
-  background: #f7f1e6;
 }
 
   </style>
@@ -61,4 +64,5 @@ img {
   </div>
 </body>
 </html>
+
 
